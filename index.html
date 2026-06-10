@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rediseña — Ingeniería Estructural. Cálculo, modelación y asesoría técnica integral para proyectos públicos, privados, industriales y comerciales.">
+    <title>Rediseña — Ingeniería Estructural</title>
+
+    <!-- 1. Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- 2. Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            50:  '#f3f7fb',
+                            100: '#e4edf7',
+                            200: '#c0d5ec',
+                            500: '#285483',
+                            600: '#22476e',
+                            700: '#1b3959',
+                        }
+                    },
+                    transitionTimingFunction: {
+                        smooth: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 4. EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- 5. Estilos personalizados -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- 6. Favicon -->
+    <link rel="icon" type="image/png" href="images/logo_icon.png">
+    <link rel="apple-touch-icon" href="images/logo_icon_180.png">
+</head>
+
+<body class="bg-white antialiased">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-shadow duration-300">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between gap-6">
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center flex-shrink-0">
+            <img src="images/logo_redisena_crop.png" alt="Rediseña — Ingeniería Estructural" class="h-10 sm:h-12 w-auto">
+        </a>
+
+        <!-- Desktop links -->
+        <div class="hidden md:flex items-center gap-8">
+            <a href="#perfil"     class="nav-link text-[13px] text-gray-500 hover:text-gray-900 transition-colors duration-200 font-medium">Empresa</a>
+            <a href="#portafolio" class="nav-link text-[13px] text-gray-500 hover:text-gray-900 transition-colors duration-200 font-medium">Portafolio</a>
+            <a href="#contacto"   class="nav-link text-[13px] text-gray-500 hover:text-gray-900 transition-colors duration-200 font-medium">Contacto</a>
+        </div>
+
+        <!-- Desktop CTA -->
+        <a href="#contacto" class="hidden md:inline-flex btn-primary items-center gap-1.5 bg-brand-500 text-white text-[13px] font-semibold px-5 py-2.5 rounded-lg">
+            Iniciar Proyecto
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button id="menuBtn" aria-label="Abrir menú" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+            <svg id="iconOpen" class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg id="iconClose" class="w-5 h-5 text-gray-700 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden overflow-hidden transition-all duration-300">
+        <div class="px-5 pb-5 pt-2 border-t border-gray-100 flex flex-col gap-1 bg-white">
+            <a href="#perfil"     onclick="closeMobileMenu()" class="text-sm text-gray-600 py-2.5 hover:text-gray-900 font-medium transition-colors">Empresa</a>
+            <a href="#portafolio" onclick="closeMobileMenu()" class="text-sm text-gray-600 py-2.5 hover:text-gray-900 font-medium transition-colors">Portafolio</a>
+            <a href="#contacto"   onclick="closeMobileMenu()" class="text-sm text-gray-600 py-2.5 hover:text-gray-900 font-medium transition-colors">Contacto</a>
+            <a href="#contacto"   onclick="closeMobileMenu()" class="mt-2 text-center bg-brand-500 text-white text-sm font-semibold px-5 py-3 rounded-lg">Iniciar Proyecto</a>
+        </div>
+    </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════════ -->
+<section id="hero" class="min-h-screen flex items-center pt-24 pb-20 overflow-hidden">
+
+    <!-- Orbes de fondo decorativos -->
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-50/60 rounded-full blur-3xl translate-x-1/3 -translate-y-1/4"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gray-50 rounded-full blur-3xl -translate-x-1/3 translate-y-1/4"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-5 sm:px-8 w-full">
+        <div class="grid lg:grid-cols-2 gap-14 xl:gap-20 items-center">
+
+            <!-- Columna izquierda: texto -->
+            <div>
+                <div class="hero-instant flex items-center gap-3 mb-7">
+                    <span class="accent-line"></span>
+                    <span class="text-[11px] font-semibold text-brand-500 tracking-[0.18em] uppercase">Ingeniería Estructural · Chile</span>
+                </div>
+
+                <h1 class="hero-instant reveal-delay-1 text-[2.4rem] sm:text-5xl lg:text-[3.2rem] font-extrabold text-gray-900 leading-[1.1] tracking-tight mb-6">
+                    Soluciones estructurales con
+                    <span class="text-brand-500"> criterio técnico</span>
+                    y visión constructiva
+                </h1>
+
+                <p class="hero-instant reveal-delay-2 text-[1.05rem] text-gray-500 leading-relaxed mb-10 max-w-lg">
+                    Especialistas en cálculo estructural, modelación avanzada y acompañamiento técnico integral — desde el anteproyecto hasta la recepción de obra.
+                </p>
+
+                <div class="hero-instant reveal-delay-3 flex flex-col sm:flex-row gap-3">
+                    <a href="#contacto" class="btn-primary inline-flex items-center justify-center gap-2 bg-brand-500 text-white font-semibold px-8 py-3.5 rounded-xl text-sm">
+                        Consultar Proyecto
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                    <a href="#portafolio" class="btn-secondary inline-flex items-center justify-center gap-2 text-gray-700 font-semibold px-8 py-3.5 rounded-xl text-sm border border-gray-200">
+                        Ver Portafolio
+                    </a>
+                </div>
+
+                <!-- Estadísticas -->
+                <div class="hero-instant reveal-delay-4 flex gap-8 mt-12 pt-10 border-t border-gray-100">
+                    <div>
+                        <div class="text-[1.9rem] font-extrabold text-gray-900 leading-none">+70</div>
+                        <div class="text-[11px] text-gray-400 mt-1.5 tracking-widest uppercase font-medium">Proyectos</div>
+                    </div>
+                    <div class="w-px bg-gray-100"></div>
+                    <div>
+                        <div class="text-[1.9rem] font-extrabold text-gray-900 leading-none">15+</div>
+                        <div class="text-[11px] text-gray-400 mt-1.5 tracking-widest uppercase font-medium">Años de exp.</div>
+                    </div>
+                    <div class="w-px bg-gray-100"></div>
+                    <div>
+                        <div class="text-[1.9rem] font-extrabold text-gray-900 leading-none">Alcance</div>
+                        <div class="text-[11px] text-gray-400 mt-1.5 tracking-widest uppercase font-medium">Nacional</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha: tarjeta con plano estructural SVG -->
+            <div class="hero-instant reveal-delay-2 hidden lg:block">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-gradient-to-br from-brand-50/40 to-transparent rounded-3xl"></div>
+                    <div class="relative bg-white rounded-2xl border border-gray-100/80 shadow-2xl shadow-gray-200/60 p-8">
+
+                        <!-- Blueprint SVG animado -->
+                        <div class="relative flex items-center justify-center" style="height:280px">
+                            <svg viewBox="0 0 340 280" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <pattern id="gridPat" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#f1f5f9" stroke-width="0.6"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="340" height="280" fill="url(#gridPat)"/>
+                                <!-- Fundación -->
+                                <rect x="55" y="238" width="230" height="14" rx="3" fill="#e5e7eb"/>
+                                <rect x="48" y="250" width="244" height="6"  rx="2" fill="#d1d5db"/>
+                                <!-- Columnas -->
+                                <rect x="62"  y="126" width="16" height="112" rx="3" fill="#d1d5db"/>
+                                <rect x="262" y="126" width="16" height="112" rx="3" fill="#d1d5db"/>
+                                <rect x="162" y="146" width="16" height="92"  rx="3" fill="#d1d5db"/>
+                                <!-- Viga superior -->
+                                <rect x="50" y="116" width="240" height="12" rx="3" fill="#9ca3af"/>
+                                <!-- Cercha de cubierta -->
+                                <polygon points="170,32 42,118 298,118" fill="#f3f7fb" stroke="#285483" stroke-width="1.5" stroke-linejoin="round"/>
+                                <!-- Líneas internas de la cercha (animadas) -->
+                                <line x1="170" y1="32"  x2="170" y2="118" stroke="#285483" stroke-width="1"    stroke-dasharray="5 4" class="draw-line"/>
+                                <line x1="170" y1="32"  x2="106" y2="118" stroke="#99bce0" stroke-width="0.8" stroke-dasharray="5 4" class="draw-line"/>
+                                <line x1="170" y1="32"  x2="234" y2="118" stroke="#99bce0" stroke-width="0.8" stroke-dasharray="5 4" class="draw-line"/>
+                                <line x1="106" y1="118" x2="234" y2="118" stroke="#c0d5ec" stroke-width="0.6" stroke-dasharray="5 4" class="draw-line"/>
+                                <!-- Cota horizontal -->
+                                <line x1="42"  y1="272" x2="298" y2="272" stroke="#285483" stroke-width="0.8"/>
+                                <line x1="42"  y1="266" x2="42"  y2="278" stroke="#285483" stroke-width="0.8"/>
+                                <line x1="298" y1="266" x2="298" y2="278" stroke="#285483" stroke-width="0.8"/>
+                                <rect x="145" y="264" width="50" height="14" rx="3" fill="white"/>
+                                <text x="170" y="274" text-anchor="middle" font-size="8" fill="#285483" font-family="Inter, sans-serif" font-weight="600">18.00 m</text>
+                                <!-- Cota vertical -->
+                                <line x1="316" y1="32"  x2="316" y2="252" stroke="#9ca3af" stroke-width="0.7"/>
+                                <line x1="310" y1="32"  x2="322" y2="32"  stroke="#9ca3af" stroke-width="0.7"/>
+                                <line x1="310" y1="252" x2="322" y2="252" stroke="#9ca3af" stroke-width="0.7"/>
+                                <rect x="299" y="136" width="34" height="13" rx="2.5" fill="white"/>
+                                <text x="316" y="145.5" text-anchor="middle" font-size="7.5" fill="#6b7280" font-family="Inter, sans-serif">8.40 m</text>
+                                <!-- Nudos estructurales -->
+                                <circle cx="70"  cy="122" r="4"   fill="#285483"/>
+                                <circle cx="270" cy="122" r="4"   fill="#285483"/>
+                                <circle cx="170" cy="118" r="4"   fill="#285483"/>
+                                <circle cx="170" cy="32"  r="5.5" fill="#285483"/>
+                                <circle cx="42"  cy="118" r="3"   fill="#99bce0"/>
+                                <circle cx="298" cy="118" r="3"   fill="#99bce0"/>
+                                <circle cx="106" cy="118" r="2.5" fill="#c0d5ec" stroke="#99bce0" stroke-width="1"/>
+                                <circle cx="234" cy="118" r="2.5" fill="#c0d5ec" stroke="#99bce0" stroke-width="1"/>
+                            </svg>
+                        </div>
+
+                        <!-- Metadatos del plano -->
+                        <div class="flex items-center justify-between pt-5 mt-1 border-t border-gray-100">
+                            <div>
+                                <div class="text-[10px] text-gray-400 tracking-widest uppercase font-medium">REV. ESTRUCTURAL — S3D</div>
+                                <div class="text-[13px] font-semibold text-gray-700 mt-0.5"> Marco Tipo Cercha · Elevación Técnica</div>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 bg-brand-50 text-brand-500 text-[10px] font-semibold px-2.5 py-1.5 rounded-full tracking-wide">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+                                Verificado
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PERFIL CORPORATIVO
+═══════════════════════════════════════════════════════════════ -->
+<section id="perfil" class="py-24 bg-gray-50/80">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+
+        <div class="reveal text-center mb-16">
+            <div class="inline-flex items-center gap-3 mb-4">
+                <span class="accent-line"></span>
+                <span class="text-[11px] font-semibold text-brand-500 tracking-[0.18em] uppercase">Quiénes Somos</span>
+                <span class="accent-line"></span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">Perfil Corporativo</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-14 items-start">
+
+            <!-- Prosa -->
+            <div class="reveal">
+                <p class="text-gray-600 leading-[1.85] text-[0.97rem] mb-5">
+                    <strong class="text-gray-900 font-semibold">Rediseña</strong> es una empresa de ingeniería estructural fundada con el propósito de entregar soluciones técnicas claras, construibles y trazables. Transformamos requerimientos complejos en documentación estructural precisa y coordinada con las demás especialidades del proyecto.
+                </p>
+                <p class="text-gray-600 leading-[1.85] text-[0.97rem] mb-5">
+                    Nuestro equipo, liderado por un <strong class="text-gray-900 font-semibold">Ingeniero Civil Estructural</strong>, aborda proyectos públicos, privados, industriales y comerciales con un único estándar: soluciones que se pueden revisar, construir y defender ante cualquier instancia técnica o normativa.
+                </p>
+                <p class="text-gray-600 leading-[1.85] text-[0.97rem]">
+                    Ofrecemos cálculo estructural, modelación en software especializado, memorias de cálculo, planimetrías estructurales y asesoría técnica permanente, asegurando continuidad y calidad desde el anteproyecto hasta la recepción final de obra.
+                </p>
+            </div>
+
+            <!-- Grilla de servicios -->
+            <div class="reveal reveal-delay-2 grid grid-cols-2 gap-4">
+
+                <div class="service-card bg-white rounded-xl p-5 border border-gray-100">
+                    <div class="w-9 h-9 bg-brand-50 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-[18px] h-[18px] text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div class="text-[13px] font-semibold text-gray-800 mb-1">Cálculo Estructural</div>
+                    <div class="text-[12px] text-gray-500 leading-relaxed">Análisis y diseño según normativa NCh vigente.</div>
+                </div>
+
+                <div class="service-card bg-white rounded-xl p-5 border border-gray-100">
+                    <div class="w-9 h-9 bg-brand-50 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-[18px] h-[18px] text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <div class="text-[13px] font-semibold text-gray-800 mb-1">Modelación BIM</div>
+                    <div class="text-[12px] text-gray-500 leading-relaxed">Modelos coordinados en software 3D especializado.</div>
+                </div>
+
+                <div class="service-card bg-white rounded-xl p-5 border border-gray-100">
+                    <div class="w-9 h-9 bg-brand-50 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-[18px] h-[18px] text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="text-[13px] font-semibold text-gray-800 mb-1">Memorias de Cálculo</div>
+                    <div class="text-[12px] text-gray-500 leading-relaxed">Documentación técnica completa y auditable.</div>
+                </div>
+
+                <div class="service-card bg-white rounded-xl p-5 border border-gray-100">
+                    <div class="w-9 h-9 bg-brand-50 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-[18px] h-[18px] text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <div class="text-[13px] font-semibold text-gray-800 mb-1">Asesoría Técnica</div>
+                    <div class="text-[12px] text-gray-500 leading-relaxed">Acompañamiento desde diseño hasta obra terminada.</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PORTAFOLIO
+═══════════════════════════════════════════════════════════════ -->
+<section id="portafolio" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+
+        <div class="reveal text-center mb-5">
+            <div class="inline-flex items-center gap-3 mb-4">
+                <span class="accent-line"></span>
+                <span class="text-[11px] font-semibold text-brand-500 tracking-[0.18em] uppercase">Referencias Comerciales</span>
+                <span class="accent-line"></span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">Portafolio de Proyectos</h2>
+            <p class="text-gray-500 max-w-lg mx-auto text-[13.5px] leading-relaxed">
+                Selección de proyectos desarrollados. Haz clic en cualquier tarjeta para acceder a los datos de validación comercial.
+            </p>
+        </div>
+
+        <!-- Grilla de tarjetas — renderizada dinámicamente por script.js -->
+        <div id="projectsGrid" class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CONTACTO
+═══════════════════════════════════════════════════════════════ -->
+<section id="contacto" class="py-24 bg-gray-50/80">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+
+        <div class="grid lg:grid-cols-2 gap-14 xl:gap-20 items-start">
+
+            <!-- Columna izquierda: información de contacto -->
+            <div class="reveal">
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="accent-line"></span>
+                    <span class="text-[11px] font-semibold text-brand-500 tracking-[0.18em] uppercase">Contacto</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mb-5">Iniciemos tu proyecto</h2>
+                <p class="text-gray-500 leading-relaxed text-[0.97rem] mb-10">
+                    Cuéntanos sobre tu proyecto. Nuestro equipo analizará los requerimientos y te responderá con una propuesta técnica a la brevedad.
+                </p>
+
+                <div class="space-y-4">
+                    <!-- Tarjeta de correo -->
+                    <div class="flex items-start gap-4 bg-white rounded-xl border border-gray-100 p-4">
+                        <div class="w-9 h-9 bg-brand-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-[17px] h-[17px] text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-0.5">Correo</div>
+                            <div class="text-[13.5px] font-medium text-gray-800">m.salazarmuoz@gmail.com</div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de oficinas -->
+                    <div class="flex items-start gap-4 bg-white rounded-xl border border-gray-100 p-4">
+                        <div class="w-9 h-9 bg-brand-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-[17px] h-[17px] text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Oficinas</div>
+                            <div class="text-[13px] font-medium text-gray-800">Providencia — Antonio Bellet 193, Of. 1210</div>
+                            <div class="text-[13px] text-gray-500 mt-0.5">Recoleta — San Gerardo 696</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha: formulario -->
+            <div class="reveal reveal-delay-2">
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-100/60 p-8 sm:p-10">
+
+                    <!-- Contenedor del formulario (se oculta al enviar con éxito) -->
+                    <div id="formContainer">
+                        <h3 class="text-[1.05rem] font-bold text-gray-900 mb-7">Envíanos un mensaje</h3>
+
+                        <form id="contactForm" novalidate class="space-y-5">
+
+                            <div>
+                                <label class="block text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-2" for="user_name">Nombre Completo</label>
+                                <input
+                                    type="text"
+                                    id="user_name"
+                                    name="user_name"
+                                    placeholder="Nombre Completo de quien consulta"
+                                    required
+                                    autocomplete="name"
+                                    class="form-input w-full px-4 py-3 text-[13.5px] text-gray-900 bg-gray-50 border border-gray-200 rounded-xl placeholder-gray-400"
+                                >
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-2" for="user_company">Empresa</label>
+                                <input
+                                    type="text"
+                                    id="user_company"
+                                    name="user_company"
+                                    placeholder="Nombre de tu empresa u organización"
+                                    required
+                                    autocomplete="organization"
+                                    class="form-input w-full px-4 py-3 text-[13.5px] text-gray-900 bg-gray-50 border border-gray-200 rounded-xl placeholder-gray-400"
+                                >
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-2" for="user_email">Correo Electrónico</label>
+                                <input
+                                    type="email"
+                                    id="user_email"
+                                    name="user_email"
+                                    placeholder="Correo de contacto para responder tu consulta"
+                                    required
+                                    autocomplete="email"
+                                    class="form-input w-full px-4 py-3 text-[13.5px] text-gray-900 bg-gray-50 border border-gray-200 rounded-xl placeholder-gray-400"
+                                >
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-2" for="message">Mensaje / Detalles del Proyecto</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    rows="4"
+                                    placeholder="Describe tu proyecto: tipo de estructura, ubicación, alcance requerido…"
+                                    required
+                                    class="form-input w-full px-4 py-3 text-[13.5px] text-gray-900 bg-gray-50 border border-gray-200 rounded-xl placeholder-gray-400 resize-none"
+                                ></textarea>
+                            </div>
+
+                            <!-- Mensaje de error (oculto por defecto) -->
+                            <div id="formError" class="hidden flex items-start gap-2 text-[12px] text-red-500 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
+                                <svg class="w-4 h-4 flex-shrink-0 mt-px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.34 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                                </svg>
+                                <span id="formErrorText">Ocurrió un error al enviar. Por favor inténtalo nuevamente.</span>
+                            </div>
+
+                            <button
+                                id="submitBtn"
+                                type="submit"
+                                class="btn-primary w-full flex items-center justify-center gap-2.5 bg-brand-500 text-white font-semibold py-3.5 px-6 rounded-xl text-sm disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:transform-none"
+                            >
+                                <span id="btnText">Enviar Mensaje</span>
+                                <span id="btnSpinner" class="hidden"><span class="spinner"></span></span>
+                            </button>
+                        </form>
+
+                        <!-- Botón de copia de correo -->
+                        <div class="mt-7 pt-5 border-t border-gray-100 flex justify-center">
+                            <button
+                                id="copyEmailBtn"
+                                onclick="copyEmail()"
+                                class="inline-flex items-center gap-2 text-[12px] text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                            >
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+                                </svg>
+                                <span id="copyEmailText">O copia nuestro correo: m.salazarmuoz@gmail.com</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Estado de éxito (oculto por defecto, aparece tras envío exitoso) -->
+                    <div id="successState" class="hidden text-center py-10">
+                        <div class="fade-in-up">
+                            <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">¡Gracias!</h3>
+                            <p class="text-gray-500 text-[14px] leading-relaxed max-w-xs mx-auto">
+                                Tu mensaje ha sido enviado con éxito.<br>Nos pondremos en contacto a la brevedad.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════════ -->
+<footer class="bg-gray-900 text-white">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14">
+
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-10 mb-10">
+
+            <!-- Marca -->
+            <div>
+                <div class="inline-block bg-white rounded-lg px-4 py-3 mb-5">
+                    <img src="images/logo_redisena_crop.png" alt="Rediseña — Ingeniería Estructural" class="h-8 w-auto">
+                </div>
+                <p class="text-[12.5px] text-gray-500 leading-relaxed">
+                    Ingeniería Estructural de precisión.<br>
+                    Soluciones claras, construibles y trazables.
+                </p>
+            </div>
+
+            <!-- Datos legales -->
+            <div>
+                <div class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-4">Datos Legales</div>
+                <div class="space-y-2 text-[12.5px] text-gray-500">
+                    <div class="font-medium text-gray-400">Rediseña</div>
+                    <div>RUT: 78.194.522-6</div>
+                    <div class="pt-2">
+                        <div class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1.5">Ingeniero Responsable</div>
+                        <div class="font-medium text-gray-400">Manuel Osvaldo Salazar Muñoz</div>
+                        <div class="text-gray-600 text-[12px] mt-0.5">Ing. Civil Estructural</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Oficinas -->
+            <div>
+                <div class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-4">Oficinas</div>
+                <div class="space-y-4 text-[12.5px] text-gray-500">
+                    <div>
+                        <div class="font-medium text-gray-400 mb-0.5">Providencia</div>
+                        <div>Antonio Bellet 193, Of. 1210</div>
+                    </div>
+                    <div>
+                        <div class="font-medium text-gray-400 mb-0.5">Recoleta</div>
+                        <div>San Gerardo 696</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="text-[12px] text-gray-600">© 2025 Rediseña · Todos los derechos reservados.</div>
+            <div class="text-[12px] text-gray-700">Ingeniería Estructural · Santiago, Chile</div>
+        </div>
+
+    </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MODAL DE PROYECTO
+═══════════════════════════════════════════════════════════════ -->
+<div id="projectModal" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
+
+    <!-- Backdrop con blur -->
+    <div id="modalBackdrop" class="absolute inset-0 bg-gray-900/55 modal-backdrop transition-opacity duration-300 opacity-0"></div>
+
+    <!-- Panel del modal -->
+    <div
+        id="modalPanel"
+        class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md z-10 transition-all duration-300 ease-out opacity-0 translate-y-3 scale-[0.97]"
+    >
+        <!-- Cabecera -->
+        <div class="flex items-start justify-between p-6 border-b border-gray-100">
+            <div class="pr-4">
+                <div class="text-[10px] font-semibold text-brand-500 uppercase tracking-widest mb-1.5">Ficha de Validación</div>
+                <h3 id="modalTitle"  class="text-[1.05rem] font-bold text-gray-900 leading-snug"></h3>
+                <p  id="modalClient" class="text-[13px] text-gray-500 mt-1"></p>
+            </div>
+            <button
+                onclick="closeModal()"
+                aria-label="Cerrar"
+                class="flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 text-gray-400 hover:text-gray-700"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Cuerpo -->
+        <div class="p-6">
+
+            <!-- Etiquetas de entregables -->
+            <div class="mb-6">
+                <div class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-3">Entregables</div>
+                <div id="modalTags" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Nota de confidencialidad -->
+            <div class="mt-4 flex items-start gap-2 text-[11.5px] text-gray-400">
+                <svg class="w-3.5 h-3.5 flex-shrink-0 mt-px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+                <span>Información confidencial. Solo para validación comercial. No se comparten planos ni valores.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 6. Lógica de frontend -->
+<script src="script.js"></script>
+
+</body>
+</html>
