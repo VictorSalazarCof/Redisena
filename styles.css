@@ -1,7 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
    styles.css — Rediseña SpA
-   Estilos personalizados que complementan las utilidades de Tailwind.
-   Animaciones, microinteracciones y ajustes finos de UI.
+   Dark industrial-premium · Barlow Condensed + Inter · Azul eléctrico
 ═══════════════════════════════════════════════════════════════ */
 
 
@@ -12,18 +11,13 @@ html { scroll-behavior: smooth; }
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #ffffff;
-    color: #111827;
+    background-color: #0D1220;
+    color: #ffffff;
     -webkit-font-smoothing: antialiased;
 }
 
 
 /* ── Scroll-reveal ─────────────────────────────────────────────── */
-/*
- * Los elementos con .reveal parten invisibles y desplazados 20px
- * hacia abajo. El IntersectionObserver en script.js les agrega
- * .visible cuando entran al viewport, disparando la transición.
- */
 .reveal {
     opacity: 0;
     transform: translateY(20px);
@@ -31,18 +25,12 @@ body {
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* Escalonamientos de delay para animaciones en secuencia */
 .reveal-delay-1 { transition-delay: 0.10s; }
 .reveal-delay-2 { transition-delay: 0.20s; }
 .reveal-delay-3 { transition-delay: 0.30s; }
 .reveal-delay-4 { transition-delay: 0.40s; }
 .reveal-delay-5 { transition-delay: 0.50s; }
 
-/*
- * .hero-instant: misma mecánica que .reveal, pero aplicada al Hero.
- * Se activa en cuanto el observer arranca (< 60ms tras DOMContentLoaded),
- * dando la sensación de que el Hero "aparece" al cargar la página.
- */
 .hero-instant {
     opacity: 0;
     transform: translateY(16px);
@@ -51,7 +39,27 @@ body {
 .hero-instant.visible { opacity: 1; transform: translateY(0); }
 
 
-/* ── Navbar — underline animado en links ───────────────────────── */
+/* ── Textura blueprint — grid de fondo ─────────────────────────── */
+/*
+ * Superpuesto sobre secciones oscuras. Doble escala de grilla:
+ * cuadrícula mayor de 60px (más visible) + menor de 12px (sutil).
+ * Opacidad ~6% para no competir con el texto.
+ */
+.blueprint-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        linear-gradient(rgba(32, 96, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(32, 96, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(rgba(32, 96, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(32, 96, 255, 0.025) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+}
+
+
+/* ── Navbar — underline azul eléctrico ─────────────────────────── */
 .nav-link { position: relative; }
 .nav-link::after {
     content: '';
@@ -59,54 +67,76 @@ body {
     bottom: -2px;
     left: 0;
     width: 0;
-    height: 1px;
-    background: #285483;
+    height: 1.5px;
+    background: #2060FF;
     transition: width 0.28s ease;
 }
 .nav-link:hover::after { width: 100%; }
 
 
-/* ── Formulario — foco con ring de acento de marca ─────────────── */
-.form-input {
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-}
-.form-input:focus {
-    outline: none;
-    border-color: #285483;
-    box-shadow: 0 0 0 3px rgba(40, 84, 131, 0.10);
-    background-color: #ffffff;
+/* ── Eyebrow de sección ─────────────────────────────────────────── */
+.section-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #2060FF;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    display: block;
 }
 
 
-/* ── Tarjetas de proyecto — hover con elevación ─────────────────── */
+/* ── Tarjetas de servicio (dark) ────────────────────────────────── */
+.service-card-dark {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.service-card-dark:hover {
+    border-color: rgba(32, 96, 255, 0.4) !important;
+    box-shadow: 0 0 0 1px rgba(32, 96, 255, 0.12), 0 8px 24px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+}
+.service-card-dark:hover .btn-circle {
+    background-color: #2060FF;
+    border-color: #2060FF;
+    color: #fff;
+}
+
+
+/* ── Botón circular con flecha ──────────────────────────────────── */
+.btn-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn-circle:hover {
+    background-color: #2060FF;
+    border-color: #2060FF;
+    color: #fff;
+}
+
+
+/* ── Tarjetas de proyecto (dark) ────────────────────────────────── */
 .project-card {
     transition: transform 0.30s ease, box-shadow 0.30s ease, border-color 0.30s ease;
 }
 .project-card:hover {
     transform: translateY(-4px) scale(1.012);
-    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.08);
-    border-color: #c0d5ec;
-}
-
-
-/* ── Spinner CSS para estado de carga del formulario ───────────── */
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.spinner {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 2px solid rgba(255, 255, 255, 0.35);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.65s linear infinite;
+    border-color: rgba(32, 96, 255, 0.4) !important;
+    box-shadow: 0 0 0 1px rgba(32, 96, 255, 0.1), 0 18px 38px rgba(0, 0, 0, 0.45);
 }
 
 
 /* ── Modal — backdrop con blur ──────────────────────────────────── */
 .modal-backdrop {
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 
@@ -115,7 +145,7 @@ body {
     display: inline-block;
     width: 32px;
     height: 2px;
-    background: #285483;
+    background: #2060FF;
     border-radius: 2px;
 }
 
@@ -129,52 +159,30 @@ body {
 }
 
 
-/* ── Animación de éxito — fade in hacia arriba ──────────────────── */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-.fade-in-up { animation: fadeInUp 0.5s ease-out both; }
-
-
-/* ── Tarjetas de servicio — hover sutil ────────────────────────── */
-.service-card {
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-}
-.service-card:hover {
-    border-color: #c0d5ec;
-    box-shadow: 0 8px 20px rgba(40, 84, 131, 0.07);
-    transform: translateY(-2px);
-}
-
-
 /* ── Botón primario — lift al hover ─────────────────────────────── */
 .btn-primary {
     transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .btn-primary:hover {
-    background-color: #22476e;
-    box-shadow: 0 12px 28px rgba(40, 84, 131, 0.28);
+    background-color: #1E5EFF;
+    box-shadow: 0 12px 32px rgba(32, 96, 255, 0.4);
     transform: translateY(-1px);
 }
 
-/* ── Botón secundario — borde y color al hover ──────────────────── */
+
+/* ── Botón secundario — dark ────────────────────────────────────── */
 .btn-secondary {
-    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 .btn-secondary:hover {
-    border-color: #6b7280;
-    color: #111827;
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.04);
     transform: translateY(-1px);
 }
 
 
 /* ── Blueprint SVG — animación de trazado de líneas ─────────────── */
-/*
- * Las líneas del plano estructural tienen stroke-dasharray=300
- * y parten con stroke-dashoffset=300 (invisibles). La animación
- * reduce el offset a 0, "dibujando" las líneas al cargar el Hero.
- */
 @keyframes drawLine {
     from { stroke-dashoffset: 300; }
     to   { stroke-dashoffset: 0; }
@@ -188,6 +196,6 @@ body {
 
 /* ── Scrollbar personalizada (WebKit) ───────────────────────────── */
 ::-webkit-scrollbar         { width: 5px; }
-::-webkit-scrollbar-track   { background: #f1f5f9; }
-::-webkit-scrollbar-thumb   { background: #cbd5e1; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+::-webkit-scrollbar-track   { background: #0A0E17; }
+::-webkit-scrollbar-thumb   { background: #182540; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #2060FF; }
